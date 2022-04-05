@@ -8,6 +8,7 @@ All scripts support `-h`/`--help` for usage information.
 
 | Script | Description |
 | --- | --- |
+| `cln-feereport.sh` | Emulates `lncli feereport` of LND for CLN. Display the current fee policies of all active channels. |
 | `cln-random-traffic-gen.sh` | Generate random (decoy) LN traffic between you and your peers to fight traffic analysis. Has lock protection against running multiple instances at the same time so can safely be just added to crontab. |
 | `cln-walletbalance.sh` | Emulates `lncli walletbalance` of LND for CLN. Compute and display the onchain wallet's current balance. |
 
