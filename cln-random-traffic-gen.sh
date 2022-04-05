@@ -15,6 +15,7 @@ if mkdir "$lockdir" 2> /dev/null; then
     trap "exit 2" 1 2 3 15
 else
     echo "Already running (pid $(cat "$lockdir"/pid))"
+    exit 1
 fi
 echo "$$" > "$lockdir"/pid 2> /dev/null || exit 2
 
