@@ -30,10 +30,12 @@ for i in $(seq 0 $(( ${#short_channel_ids[@]} - 1 )) ); do
                 channel_fees="$channel_fees,"
             fi
             channel_fee="{
-                \"chan_point\": \"${funding_txids[$i]}:${funding_outputs[$i]}\",
+                \"chan_point\":
+                    \"${funding_txids[$i]}:${funding_outputs[$i]}\",
                 \"base_fee_msat\": \"${detail_base_fee_msat[$j]}\",
                 \"fee_per_mil\": \"${detail_fee_per_mil[$j]}\",
-                \"fee_rate\": $((${detail_fee_per_mil[$j]} / 1000000))
+                \"fee_rate\":
+                    $(bc <<< "scale=6; ${detail_fee_per_mil[$j]} / 1000000")
             }"
             channel_fees="$channel_fees$channel_fee"
             needs_comma="1"

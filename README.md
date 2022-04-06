@@ -2,7 +2,7 @@
 
 Various shell scripts for [CLN (Core Lightning / c-lightning)](https://github.com/ElementsProject/lightning). I also have [some scripts for Bitcoin Core](https://github.com/kristapsk/bitcoin-scripts).
 
-Dependencies: `bash`, `lightning-cli` (comes with CLN), [`jq`](https://github.com/stedolan/jq).
+Dependencies: `bash`, `lightning-cli` (comes with CLN), `bc`, [`jq`](https://github.com/stedolan/jq).
 
 All scripts support `-h`/`--help` for usage information.
 
