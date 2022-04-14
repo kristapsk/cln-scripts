@@ -36,7 +36,8 @@ while :; do
         # Each peer has 50% probability of being pinged during each ping loop.
         if [[ $((RANDOM % 2)) != 0 ]]; then
             echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] Pinging $node_id"
-            lightning-cli ping "$node_id" $((RANDOM % 65530)) $((RANDOM % 65530))
+            timeout 60 lightning-cli ping "$node_id" \
+                $((RANDOM % 65530)) $((RANDOM % 65530))
         fi
     done
     sleeptime="$(( (RANDOM % sleeptime_diff) + sleeptime_min ))"
