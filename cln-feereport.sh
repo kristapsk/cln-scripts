@@ -8,6 +8,13 @@ fi
 
 our_nodeid="$(lightning-cli getinfo | jq -r ".id")"
 
+# https://bitcoin.stackexchange.com/a/79427
+cl_to_lnd_scid()
+{
+    IFS="x" read -r -a s <<< "$1"
+    echo $(( (s[0] << 40) | (s[1] << 16) | s[2] ))
+}
+
 channels="$(lightning-cli listfunds | \
     jq '.channels[] | select(.state=="CHANNELD_NORMAL")')"
 readarray -t short_channel_ids < <(jq -r ".short_channel_id" <<< "$channels")
@@ -30,7 +37,9 @@ for i in $(seq 0 $(( ${#short_channel_ids[@]} - 1 )) ); do
                 channel_fees="$channel_fees,"
             fi
             channel_fee="{
-                \"chan_point\":
+                \"chan_id\": \"$(cl_to_lnd_scid "${short_channel_ids[$i]}")\",
+                \"cln_chan_id\": \"${short_channel_ids[$i]}\",
+                \"channel_point\":
                     \"${funding_txids[$i]}:${funding_outputs[$i]}\",
                 \"base_fee_msat\": \"${detail_base_fee_msat[$j]}\",
                 \"fee_per_mil\": \"${detail_fee_per_mil[$j]}\",
