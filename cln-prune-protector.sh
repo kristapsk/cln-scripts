@@ -63,9 +63,9 @@ while :; do
         if (( $(( btc_bh - cln_bh )) > check_numblocks )); then
             bitcoind_setnetworkactive false \
                 "$btc_bh - $cln_bh > $check_numblocks"
-        else
+        elif (( $(( btc_bh - cln_bh )) <= $(( check_numblocks / 2 )) )); then
             bitcoind_setnetworkactive true \
-                "$btc_bh - $cln_bh <= $check_numblocks"
+                "$btc_bh - $cln_bh <= $(( check_numblocks / 2 ))"
         fi
     else
         bitcoind_setnetworkactive false "CLN not running"
