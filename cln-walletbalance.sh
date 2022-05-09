@@ -6,6 +6,10 @@ if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
     exit
 fi
 
+# Note that unconfirmed_balance will always be 0 for now, even if there
+# is pending unconfirmed tx in mempool.
+# See <https://github.com/ElementsProject/lightning/issues/2104>.
+
 confirmed_balance="0"
 unconfirmed_balance="0"
 outputs="$(lightning-cli listfunds | jq ".outputs")"
