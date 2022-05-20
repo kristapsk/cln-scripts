@@ -9,6 +9,6 @@ cl_to_lnd_scid()
 
 lnd_to_cl_scid()
 {
-	echo "$(( "$1" >> 40 ))x$(( "$1" >> 16 & 0xFFFFFF ))x$(( "$1" & 0xFFFF ))"
+    echo "$(( "$1" >> 40 ))x$(( "$1" >> 16 & 0xFFFFFF ))x$(( "$1" & 0xFFFF ))"
 }
 
