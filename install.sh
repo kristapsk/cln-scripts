@@ -18,6 +18,10 @@ cd "$(dirname "$0")" || exit 1
 
 $sudo mkdir -p "$PREFIX"
 
+echo -n "Installing inc.common.sh..."
+$sudo install -p -t "$PREFIX" -m 666 ./inc.common.sh
+echo ""
+
 for script in \
     channelbalance \
     feereport \

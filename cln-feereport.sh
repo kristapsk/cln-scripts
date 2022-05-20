@@ -8,12 +8,9 @@ fi
 
 our_nodeid="$(lightning-cli getinfo | jq -r ".id")"
 
-# https://bitcoin.stackexchange.com/a/79427
-cl_to_lnd_scid()
-{
-    IFS="x" read -r -a s <<< "$1"
-    echo $(( (s[0] << 40) | (s[1] << 16) | s[2] ))
-}
+# shellcheck disable=SC1091
+# shellcheck source=./inc.common.sh
+. "$(dirname "$(readlink -m "$0")")/inc.common.sh"
 
 channels="$(lightning-cli listfunds | \
     jq '.channels[] | select(.state=="CHANNELD_NORMAL")')"
