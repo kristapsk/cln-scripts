@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ "$1" == "-h" ]] | [[ "$1" == "--help" ]]; then
+if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
     echo "Installs CLN scripts."
     echo "Usage: $(basename "$0")"
     exit
