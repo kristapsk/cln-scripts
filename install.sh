@@ -23,6 +23,7 @@ $sudo install -p -t "$PREFIX" -m 644 ./inc.common.sh
 echo ""
 
 for script in \
+    amboss-ping \
     channelbalance \
     feereport \
     prune-protector \

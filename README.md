@@ -8,6 +8,7 @@ All scripts support `-h`/`--help` for usage information.
 
 | Script | Description |
 | --- | --- |
+| `cln-amboss-ping.sh` | Send node health check ping to Amboss, see [docs](https://docs.amboss.space/api/monitoring/health-checks). |
 | `cln-channelbalance.sh` | Emulates `lncli channelbalance` of LND for CLN. Returns the sum of the total available channel balance across all open channels. |
 | `cln-feereport.sh` | Emulates `lncli feereport` of LND for CLN. Display the current fee policies of all active channels. |
 | `cln-prune-protector.sh` | Protect CLN against Bitcoin Core pruning too much. |
