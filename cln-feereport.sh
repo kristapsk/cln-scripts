@@ -73,9 +73,13 @@ for i in $(seq 0 $(( ${#fwd_fees[@]} - 1 )) ); do
     fi
 done
 
+fees_collected_msat="$(lightning-cli getinfo | jq -r ".fees_collected_msat")"
+fees_collected_msat=${fees_collected_msat%msat}
+
 jq -M <<< "{
     \"channel_fees\": [ $channel_fees ],
     \"day_fee_sum\": \"$(( day_fee_sum / 1000 ))\",
     \"week_fee_sum\": \"$(( week_fee_sum / 1000 ))\",
-    \"month_fee_sum\": \"$(( month_fee_sum / 1000 ))\"
+    \"month_fee_sum\": \"$(( month_fee_sum / 1000 ))\",
+    \"total_fee_sum\": \"$(( fees_collected_msat / 1000 ))\"
 }"
