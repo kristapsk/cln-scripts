@@ -32,7 +32,7 @@ for script in \
 do
     echo -n "Installing cln-$script..."
     $sudo install -p -t "$PREFIX" ./cln-$script.sh
-    $sudo ln -f -s "$PREFIX/cln-$script.sh" /usr/bin/cln-$script
+    $sudo ln -f -s "$PREFIX/cln-$script.sh" /usr/local/bin/cln-$script
     echo ""
 done
 
