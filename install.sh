@@ -27,6 +27,7 @@ for script in \
     channelbalance \
     feereport \
     prune-protector \
+    routing-summary \
     random-traffic-gen \
     walletbalance
 do

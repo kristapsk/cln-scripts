@@ -53,9 +53,8 @@ done
 day_ago="$(date -d "day ago" +"%s")"
 week_ago="$(date -d "week ago" +"%s")"
 month_ago="$(date -d "month ago" +"%s")"
-forwards="$(lightning-cli listforwards | \
-    jq ".forwards[] | \
-        select(.status==\"settled\" and .resolved_time > $month_ago)")"
+forwards="$(lightning-cli listforwards settled | \
+    jq ".forwards[] | select(.resolved_time > $month_ago)")"
 readarray -t fwd_fees < <(jq ".fee" <<< "$forwards")
 readarray -t fwd_times < <(jq -r ".resolved_time | floor" <<< "$forwards")
 day_fee_sum="0"

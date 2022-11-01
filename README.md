@@ -24,6 +24,7 @@ All scripts support `-h`/`--help` for usage information.
 | `cln-channelbalance` | Returns the sum of the total available channel balance across all open channels, like `lncli channelbalance` of LND. |
 | `cln-feereport` | Display the current fee policies of all active channels, like `lncli feereport` of LND. |
 | `cln-prune-protector` | Protect CLN against Bitcoin Core pruning too much. |
+| `cln-routing-summary` | Display routing summary for a given period. |
 | `cln-random-traffic-gen` | Generate random (decoy) LN traffic between you and your peers to fight traffic analysis. Has lock protection against running multiple instances at the same time so can safely be just added to crontab. |
 | `cln-walletbalance` | Compute and display the onchain wallet's current balance, like `lncli walletbalance` of LND. |
 
