@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2016
 
 if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
     echo "Installs CLN scripts."
@@ -34,8 +35,8 @@ SCRIPT_LIST="
 
 for script in $SCRIPT_LIST; do
     echo -n "Installing cln-$script..."
-    $sudo install -p -t "$PREFIX" ./cln-$script.sh
-    $sudo ln -f -s "$PREFIX/cln-$script.sh" /usr/local/bin/cln-$script
+    $sudo install -p -t "$PREFIX" "./cln-$script.sh"
+    $sudo ln -f -s "$PREFIX/cln-$script.sh" "/usr/local/bin/cln-$script"
     echo ""
 done
 
