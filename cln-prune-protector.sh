@@ -32,13 +32,20 @@ else
     check_interval="60s"
 fi
 
+log_with_date()
+{
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%S%z)] $*"
+}
+
+log_with_date "Starting"
+
 if ! bitcoin-cli echo > /dev/null 2>&1; then
-    echo "Bitcoin Core not running, exiting."
+    log_with_date "Bitcoin Core not running, exiting."
     exit 1
 fi
 
 if ! lightning-cli getinfo > /dev/null 2>&1; then
-    echo "CLN not running, exiting."
+    log_with_date "CLN not running, exiting."
     exit 1
 fi
 
@@ -49,17 +56,17 @@ bitcoind_setnetworkactive()
 {
     if [[ "$1" != "$bitcoind_networkactive" ]]; then
         echo -n "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] "
-        echo -n "bitcoin-cli setnetworkactive $1 (because $2): "
         bitcoind_networkactive="$(bitcoin-cli setnetworkactive "$1")"
-        echo "$bitcoind_networkactive"
+        log_with_date "bitcoin-cli setnetworkactive $1 (because $2): $bitcoind_networkactive"
     fi
 }
 
 while :; do
     if ! btc_bh="$(bitcoin-cli getblockcount 2> /dev/null)"; then
-        echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] Bitcoin Core not running."
+        log_with_date "Bitcoin Core not running."
     elif wbh_res="$(lightning-cli waitblockheight 0 2> /dev/null)"; then
         cln_bh="$(jq -r ".blockheight" <<< "$wbh_res")"
+        log_with_date "bitcoind blockheight $btc_bh, cln blockheigt $cln_bh"
         if (( $(( btc_bh - cln_bh )) > check_numblocks )); then
             bitcoind_setnetworkactive false \
                 "$btc_bh - $cln_bh > $check_numblocks"
@@ -70,5 +77,6 @@ while :; do
     else
         bitcoind_setnetworkactive false "CLN not running"
     fi
+    log_with_date "Sleeping for $check_interval"
     sleep "$check_interval"
 done
