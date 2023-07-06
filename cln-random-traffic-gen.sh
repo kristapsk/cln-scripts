@@ -31,16 +31,23 @@ else
 fi
 sleeptime_diff="$(( sleeptime_max - sleeptime_min ))"
 
+# shellcheck disable=SC1091
+# shellcheck source=./inc.common.sh
+. "$(dirname "$(readlink -m "$0")")/inc.common.sh"
+
+log_with_date "Starting"
+
 while :; do
     lightning-cli listpeers | jq -r ".peers[].id" | while read -r node_id; do
-        # Each peer has 50% probability of being pinged during each ping loop.
+        # Each peer has 50% probability of being pinged during each ping loop
+        # iteration.
         if [[ $((RANDOM % 2)) != 0 ]]; then
-            echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] Pinging $node_id"
+            log_with_date "Pinging $node_id"
             timeout 60 lightning-cli ping "$node_id" \
                 $((RANDOM % 65530)) $((RANDOM % 65530))
         fi
     done
     sleeptime="$(( (RANDOM % sleeptime_diff) + sleeptime_min ))"
-    echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] sleeping for $sleeptime secs..."
+    log_with_date "Sleeping for $sleeptime secs..."
     sleep "$sleeptime"
 done

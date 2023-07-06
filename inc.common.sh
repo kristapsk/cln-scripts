@@ -12,3 +12,8 @@ lnd_to_cl_scid()
     echo "$(( "$1" >> 40 ))x$(( "$1" >> 16 & 0xFFFFFF ))x$(( "$1" & 0xFFFF ))"
 }
 
+log_with_date()
+{
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%S%z)] $*"
+}
+

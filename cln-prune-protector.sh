@@ -32,10 +32,9 @@ else
     check_interval="60s"
 fi
 
-log_with_date()
-{
-    echo "[$(date -u +%Y-%m-%dT%H:%M:%S%z)] $*"
-}
+# shellcheck disable=SC1091
+# shellcheck source=./inc.common.sh
+. "$(dirname "$(readlink -m "$0")")/inc.common.sh"
 
 log_with_date "Starting"
 
