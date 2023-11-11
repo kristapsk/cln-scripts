@@ -8,7 +8,7 @@ Dependencies: `bash`, `lightning-cli` (comes with CLN), `bc`, [`jq`](https://git
 
 Gentoo Linux users can use [my portage overlay](https://github.com/kristapsk/portage-overlay):
 ```sh
-# layman -o https://raw.github.com/kristapsk/portage-overlay/master/overlay.xml -L -a kristapsk
+# eselect repository add kristapsk git https://github.com/kristapsk/portage-overlay.git
 # emerge -av cln-scripts
 ```
 
