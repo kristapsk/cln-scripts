@@ -37,6 +37,7 @@ fi
 . "$(dirname "$(readlink -m "$0")")/inc.common.sh"
 
 log_with_date "Starting"
+log_with_date "check_numblocks = $check_numblocks, check_interval = $check_interval"
 
 if ! bitcoin-cli echo > /dev/null 2>&1; then
     log_with_date "Bitcoin Core not running, exiting."
@@ -65,7 +66,7 @@ while :; do
         log_with_date "Bitcoin Core not running."
     elif wbh_res="$(lightning-cli waitblockheight 0 2> /dev/null)"; then
         cln_bh="$(jq -r ".blockheight" <<< "$wbh_res")"
-        log_with_date "bitcoind blockheight $btc_bh, cln blockheigt $cln_bh"
+        log_with_date "bitcoind blockheight $btc_bh, cln blockheigt $cln_bh (diff = $(( btc_bh - cln_bh )))"
         if (( $(( btc_bh - cln_bh )) > check_numblocks )); then
             bitcoind_setnetworkactive false \
                 "$btc_bh - $cln_bh > $check_numblocks"
