@@ -29,7 +29,7 @@ fi
 if [[ -n "$2" ]]; then
     check_interval="$2"
 else
-    check_interval="60s"
+    check_interval="10s"
 fi
 
 # shellcheck disable=SC1091
